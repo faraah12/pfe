@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="dropdown">
+    <button class="dropdown-toggle" [matMenuTriggerFor]="plus" >+</button>
+    <mat-menu #plus>
+      <button mat-menu-item (click)="toggleAdd()">Add</button>
+      <button mat-menu-item (click)="togglelist()">List</button>
+      <button mat-menu-item (click)="toggledownload()">Download</button>
+    </mat-menu>
+  </div>
+  @if (!isAdd && !isUpdating){
+    <mat-card class="plan-card" >
+      <mat-card-content>
+        <table matSort mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="Modetravail">
+            <th mat-header-cell *matHeaderCellDef> Modetravail </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.modeDeTravail}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Equipe">
+            <th mat-header-cell *matHeaderCellDef> Equipe </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.equipe}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Periode">
+            <th mat-header-cell *matHeaderCellDef> Periode </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.choixPeriode}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Shift">
+            <th mat-header-cell *matHeaderCellDef> Shift </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.choixShift}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Datedebut">
+            <th mat-header-cell *matHeaderCellDef> Datedebut </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.dateDebut}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Datefin">
+            <th mat-header-cell *matHeaderCellDef> Datefin </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.dateFin}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let plan">
+              <button mat-raised-button (click)="deletePlan(plan.id)" color="accent">
+                <mat-icon class="fas fa-trash"></mat-icon>
+              </button>
+              <button mat-raised-button (click)="updatePlan(plan)" color="accent">
+                <mat-icon class="fas fa-pen"></mat-icon>
+              </button>
+
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons>
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <form [formGroup]="planDeRoulementForm" (ngSubmit)="onSubmit()" class="form-container " *ngIf="isAdd">
+    <div class="form-group">
+      <h3>Sélectionnez le mode de travail :</h3>
+      <select formControlName="modeDeTravailId" class="form-control">
+        <option *ngFor="let mode of modesDeTravail" [value]="mode.id">{{ mode.semaine }} jour / Shifts : {{ mode.jour }} shift</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <h3>Sélectionnez l'équipe :</h3>
+      <select formControlName="equipeId" class="form-control">
+        <option *ngFor="let equipe of equipes" [value]="equipe.id">{{ equipe.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <h3>Choisissez la période :</h3>
+      <mat-radio-group class="radio-group" formControlName="choixPeriode">
+        <mat-radio-button *ngFor="let periode of periods" [value]="periode">{{ periode }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="form-group">
+      <h3>Choisissez le shift :</h3>
+      <mat-radio-group class="radio-group" formControlName="choixShift">
+        <mat-radio-button *ngFor="let shift of Shifts" [value]="shift">{{ shift }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="form-group">
+      <label>Date de début :</label>
+      <input type="date" formControlName="dateDebut" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Date de fin :</label>
+      <input type="date" formControlName="dateFin" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Soumettre</button>
+  </form>
+
+
+
+
+  <form [formGroup]="planDeRoulementUpdateForm" (ngSubmit)="onUpdateSubmit()" class="form-container" *ngIf="isUpdating">
+    <div class="form-group">
+      <h3>Sélectionnez le mode de travail :</h3>
+      <select formControlName="modeDeTravailId" class="form-control">
+        <option *ngFor="let mode of modesDeTravail" [value]="mode.id">{{ mode.semaine }} jour / Shifts : {{ mode.jour }} shift</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <h3>Sélectionnez l'équipe :</h3>
+      <select formControlName="equipeId" class="form-control">
+        <option *ngFor="let equipe of equipes" [value]="equipe.id">{{ equipe.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <h3>Choisissez la période :</h3>
+      <mat-radio-group class="radio-group" formControlName="choixPeriode">
+        <mat-radio-button *ngFor="let periode of periods" [value]="periode">{{ periode }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="form-group">
+      <h3>Choisissez le shift :</h3>
+      <mat-radio-group class="radio-group" formControlName="choixShift">
+        <mat-radio-button *ngFor="let shift of Shifts" [value]="shift">{{ shift }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="form-group">
+      <label>Date de début :</label>
+      <input type="date" formControlName="dateDebut" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Date de fin :</label>
+      <input type="date" formControlName="dateFin" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">update</button>
+    <button type="button" class="btn btn-primary btn-block" (click)="onCancelUpdate()">Cancel</button>
+  </form>
+
+
+</div>

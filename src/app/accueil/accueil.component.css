@@ -1,0 +1,118 @@
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px); /* Move element 50px to the left */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0); /* Move element back to its original position */
+  }
+}
+/* Navbar styles */
+.navbar {
+  background-color: #333;
+  padding: 10px 20px;
+  width: 100%;
+  position: fixed;
+  top: 60px;
+  z-index: 1000;
+  animation: slideInFromLeft 1s ease;
+
+}
+
+.navbar-nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  height: 100vh;
+  width: 100%;
+  background-image: url('../../assets/Marsa-Maroc.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:fixed;
+}
+.home-page {
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.contact-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+  animation: slideInFromLeft 1s ease;
+
+}
+
+.contact-info {
+  background: linear-gradient(to bottom right, #4e54c8, #8f94fb);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: slideInFromLeft 1s ease;
+
+}
+
+.contact-info:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.contact-info h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.info-item {
+  margin-bottom: 25px;
+}
+
+.info-item span:first-child {
+  display: block;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.info-item span:last-child {
+  display: block;
+  font-size: 1.8rem;
+  color: #fff;
+  margin-top: 5px;
+}
+
+
+.social-media-icons {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.social-media-icons a {
+  color: white;
+  margin: 0 10px;
+}
+
+.social-media-icons a:hover {
+  color: #007bff;
+}
+
+
+
+

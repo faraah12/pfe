@@ -1,0 +1,91 @@
+
+<div class="container">
+  <div class="dropdown">
+    <button class="dropdown-toggle" [matMenuTriggerFor]="plus" >+</button>
+    <mat-menu #plus>
+      <button mat-menu-item (click)="toggleAdd()">Add</button>
+      <button mat-menu-item (click)="togglelist()">List</button>
+    </mat-menu>
+  </div>
+
+
+  @if (!isAdd && !isUpdating){
+  <mat-card class="equipe-card" >
+    <mat-card-content>
+      <table matSort mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="Nom">
+          <th mat-header-cell *matHeaderCellDef> Nom </th>
+          <td mat-cell *matCellDef="let equipe"> {{equipe.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Responsable">
+          <th mat-header-cell *matHeaderCellDef> Responsable </th>
+          <td mat-cell *matCellDef="let equipe"> {{equipe.responsable}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Fonction">
+          <th mat-header-cell *matHeaderCellDef> Foction </th>
+          <td mat-cell *matCellDef="let equipe"> {{equipe.fonction}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let equipe">
+            <button mat-raised-button (click)="deleteEquipe(equipe.id)" color="accent">
+              <mat-icon class="fas fa-trash"></mat-icon>
+            </button>
+            <button mat-raised-button (click)="updateEquipe(equipe)" color="accent">
+              <mat-icon class="fas fa-pen"></mat-icon>
+            </button>
+
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons>
+      </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+  }
+
+
+  <form [formGroup]="equipeForm" (ngSubmit)="onSubmit()" class="form-container" *ngIf="isAdd">
+    <h2 class="title">Définition d'une Équipe</h2>
+    <div class="form-group">
+      <label for="name" class="label">Nom de l'équipe :</label>
+      <input type="text" id="name" formControlName="name" class="form-control small-input" placeholder="Entrez le nom de l'équipe" required>
+    </div>
+    <div class="form-group">
+      <label for="responsable" class="label">Responsable :</label>
+      <input type="text" id="responsable" formControlName="responsable" class="form-control small-input" placeholder="Entrez le nom du responsable" required>
+    </div>
+    <div class="form-group">
+      <label for="fonction" class="label">Fonction :</label>
+      <input type="text" id="fonction" formControlName="fonction" class="form-control small-input" placeholder="Entrez la fonction d'équipe (CER/CEQ/GRUTIER)" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Valider</button>
+  </form>
+
+  <form [formGroup]="equipelUpdateForm" (ngSubmit)="onUpdateSubmit()" class="form-container" *ngIf="isUpdating">
+    <h2 class="title">Mise à jour d'une Équipe</h2>
+    <div class="form-group">
+      <label for="name2" class="label">Nom de l'équipe :</label>
+      <input type="text" id="name2" formControlName="name" class="form-control small-input" placeholder="Entrez le nom de l'équipe" required>
+    </div>
+    <div class="form-group">
+      <label for="responsable2" class="label">Responsable :</label>
+      <input type="text" id="responsable2" formControlName="responsable" class="form-control small-input" placeholder="Entrez le nom du responsable" required>
+    </div>
+    <div class="form-group">
+      <label for="fonction2" class="label">Fonction :</label>
+      <input type="text" id="fonction2" formControlName="fonction" class="form-control small-input" placeholder="Entrez la fonction de l'équipe" required>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <button type="submit" class="btn btn-success">Update</button>
+        <button type="button" class="btn btn-danger" (click)="onCancelUpdate()">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+
+</div>

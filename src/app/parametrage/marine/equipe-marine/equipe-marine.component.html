@@ -1,0 +1,78 @@
+
+
+<form [formGroup]="equipeForm" (ngSubmit)="onSubmit()" class="container form-container" *ngIf="!isUpdating">
+  <h2 class="title">Définition d'une Équipe</h2>
+  <div class="form-group">
+    <label for="name">Nom de l'équipe</label>
+    <input type="text" id="name" formControlName="name" class="form-control small-input" placeholder="Entrez le nom de l'équipe" required>
+  </div>
+  <div class="form-group">
+    <label for="responsable">Responsable</label>
+    <input type="text" id="responsable" formControlName="responsable" class="form-control small-input" placeholder="Entrez le nom du responsable" required>
+  </div>
+  <div class="form-group">
+    <label for="fonction">Fonction</label>
+    <input type="text" id="fonction" formControlName="fonction" class="form-control small-input" placeholder="Entrez la fonction de l'équipe" required>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+      <button type="submit" class="btn btn-success">Valider</button>
+    </div>
+  </div>
+</form>
+
+
+
+
+<form [formGroup]="equipelUpdateForm" (ngSubmit)="onUpdateSubmit()" class="container form-container" *ngIf="isUpdating">
+  <div class="form-group">
+    <label for="name">Nom de l'équipe</label>
+    <input type="text" id="name2" formControlName="name" class="form-control small-input" placeholder="Entrez le nom de l'équipe" required>
+  </div>
+  <div class="form-group">
+    <label for="responsable">Responsable</label>
+    <input type="text" id="responsable2" formControlName="responsable" class="form-control small-input" placeholder="Entrez le nom du responsable" required>
+  </div>
+  <div class="form-group">
+    <label for="fonction">Fonction</label>
+    <input type="text" id="fonction2" formControlName="fonction" class="form-control small-input" placeholder="Entrez la fonction de l'équipe" required>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+      <button type="submit" class="btn btn-success">update</button>
+      <button type="button" class="btn btn-danger" (click)="onCancelUpdate()">Cancel</button>
+    </div>
+  </div>
+</form>
+
+<div class="button-container">
+  <button class="btn btn-info" (click)="toggleEquipes()">Afficher les équipes</button>
+</div>
+<!-- Section pour afficher les équipes existantes -->
+<div class="container" *ngIf="showEquipes">
+  <h2 class="title">Liste des équipes</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Nom de l'équipe</th>
+      <th>Responsable</th>
+      <th>Fonction</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let equipe of equipes">
+      <td>{{ equipe.name }}</td>
+      <td>{{ equipe.responsable }}</td>
+      <td>{{ equipe.fonction }}</td>
+      <td>
+        <button class="fa" (click)="deleteEquipe(equipe.id)">
+          <i class="fas fa-trash"></i>
+        </button>
+        <button class="fa" (click)="updateEquipe(equipe)">
+          <i class="fas fa-pen"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

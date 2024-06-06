@@ -1,0 +1,174 @@
+ *********************************app-routing.modules.ts*******************
+
+ // app-routing.module.ts
+ import { NgModule } from '@angular/core';
+ import { Routes, RouterModule } from '@angular/router';
+ import { AccueilComponent } from './accueil/accueil.component';
+ import { ParametrageComponent } from './parametrage/parametrage.component';
+ import { ExploitationComponent } from './exploitation/exploitation.component';
+ import { AdministrationComponent } from './administration/administration.component';
+ import {ManutentionComponent} from "./manutention/manutention.component";
+ import {MarineComponent} from "./marine/marine.component";
+ import {LogistiqueComponent} from "./logistique/logistique.component";
+ import {ModeTravailComponent} from "./mode-travail/mode-travail.component";
+ import {PeriodeShiftComponent} from "./periode-shift/periode-shift.component";
+ import {EquipeComponent} from "./equipe/equipe.component";
+ import {PlanRoulementComponent} from "./plan-roulement/plan-roulement.component";
+ import {MainTheoriqueComponent} from "./main-theorique/main-theorique.component";
+ import {NormeComponent} from "./norme/norme.component";
+
+ const routes: Routes = [
+   { path: 'accueil', component: AccueilComponent },
+   {
+     path: 'parametrage',
+     component: ParametrageComponent,
+     children: [
+       { path: 'manutention',
+         component: ManutentionComponent,
+         children:[
+
+             {path: 'mode-travail', component: ModeTravailComponent },
+             {path: 'periode-shift', component: PeriodeShiftComponent },
+             {path: 'equipe', component: EquipeComponent },
+             {path: 'plan_roulement', component: PlanRoulementComponent },
+             {path: 'main_theorique', component: MainTheoriqueComponent },
+             {path: 'norme', component: NormeComponent },
+ ]
+       },
+       { path: 'marine', component: MarineComponent },
+       { path: 'logistique', component: LogistiqueComponent },
+     ]
+   },
+   { path: 'exploitation', component: ExploitationComponent},
+   { path: 'administration', component: AdministrationComponent },
+   { path: '', redirectTo: '/accueil', pathMatch: 'full' },
+ ];
+
+ @NgModule({
+   imports: [RouterModule.forRoot(routes)],
+   exports: [RouterModule]
+ })
+
+
+
+
+ export class AppRoutingModule { }
+
+
+**************************accueil.component.html*********************
+
+<button mat-button [matMenuTriggerFor]="Parametrage">Parametrage</button>
+<mat-menu #Parametrage="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="Manutention">Manutention</button>
+  <button mat-menu-item [matMenuTriggerFor]="Marine">Marine</button>
+  <button mat-menu-item [matMenuTriggerFor]="Logistique">Logistique</button>
+
+</mat-menu>
+
+
+
+
+
+<mat-menu #Manutention="matMenu">
+  <button mat-menu-item routerLink="/parametrage/manutention/main-theorique" >Mode de travail</button>
+  <button mat-menu-item>Période Shift</button>
+  <button mat-menu-item>Equipe</button>
+  <button mat-menu-item>Plan de roulement</button>
+  <button mat-menu-item>Main théorique</button>
+  <button mat-menu-item>Norme</button>
+</mat-menu>
+
+<mat-menu #Marine="matMenu">
+  <button mat-menu-item>Mode de travail</button>
+  <button mat-menu-item>Période Shift</button>
+  <button mat-menu-item>Equipe</button>
+  <button mat-menu-item>Plan de roulement</button>
+  <button mat-menu-item>Main théorique</button>
+</mat-menu>
+
+<mat-menu #Logistique="matMenu">
+  <button mat-menu-item>Mode de travail</button>
+  <button mat-menu-item>Période Shift</button>
+  <button mat-menu-item>Equipe</button>
+  <button mat-menu-item>Plan de roulement</button>
+</mat-menu>
+
+
+
+
+
+
+<button mat-button [matMenuTriggerFor]="Exploitation">Exploitation</button>
+<mat-menu #Exploitation="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="Manutention">Manutention</button>
+  <button mat-menu-item [matMenuTriggerFor]="Marine">Marine</button>
+  <button mat-menu-item [matMenuTriggerFor]="Logistique">Logistique</button>
+
+</mat-menu>
+
+
+
+
+
+<mat-menu #Manutention="matMenu">
+  <button mat-menu-item>Mode de travail</button>
+  <button mat-menu-item>Période Shift</button>
+  <button mat-menu-item>Equipe</button>
+  <button mat-menu-item>Plan de roulement</button>
+  <button mat-menu-item>Main théorique</button>
+  <button mat-menu-item>Norme</button>
+</mat-menu>
+
+<mat-menu #Marine="matMenu">
+  <button mat-menu-item>Mode de travail</button>
+  <button mat-menu-item>Période Shift</button>
+  <button mat-menu-item>Equipe</button>
+  <button mat-menu-item>Plan de roulement</button>
+  <button mat-menu-item>Main théorique</button>
+</mat-menu>
+
+<mat-menu #Logistique="matMenu">
+  <button mat-menu-item>Mode de travail</button>
+  <button mat-menu-item>Période Shift</button>
+  <button mat-menu-item>Equipe</button>
+  <button mat-menu-item>Plan de roulement</button>
+</mat-menu>
+
+
+<button mat-button [matMenuTriggerFor]="Administration">Administration</button>
+<mat-menu #Administration="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="Manutention">Manutention</button>
+  <button mat-menu-item [matMenuTriggerFor]="Marine">Marine</button>
+  <button mat-menu-item [matMenuTriggerFor]="Logistique">Logistique</button>
+
+</mat-menu>
+
+
+
+
+
+<mat-menu #Manutention="matMenu">
+  <button mat-menu-item>Mode de travail</button>
+  <button mat-menu-item>Période Shift</button>
+  <button mat-menu-item>Equipe</button>
+  <button mat-menu-item>Plan de roulement</button>
+  <button mat-menu-item>Main théorique</button>
+  <button mat-menu-item>Norme</button>
+</mat-menu>
+
+<mat-menu #Marine="matMenu">
+  <button mat-menu-item>Mode de travail</button>
+  <button mat-menu-item>Période Shift</button>
+  <button mat-menu-item>Equipe</button>
+  <button mat-menu-item>Plan de roulement</button>
+  <button mat-menu-item>Main théorique</button>
+</mat-menu>
+
+<mat-menu #Logistique="matMenu">
+  <button mat-menu-item>Mode de travail</button>
+  <button mat-menu-item>Période Shift</button>
+  <button mat-menu-item>Equipe</button>
+  <button mat-menu-item>Plan de roulement</button>
+</mat-menu>
+
+*******************

@@ -1,0 +1,35 @@
+<div class="container">
+  <nav class="navbar">
+    <ul class="navbar-nav">
+      <button mat-button color="accent" >Home</button>
+      <button mat-button color="accent" (click)="toggleAboutUsFormVisibility()">About Us</button>
+      <button mat-button color="accent" (click)="toggleContactFormVisibility()">Contact Us</button>
+    </ul>
+  </nav>
+  <div class="home-page" id="home-page">
+  </div>
+
+  <div *ngIf="showContactForm " class="contact-info-container">
+    <div class="contact-info">
+      <h2>Informations de contact</h2>
+      <div class="info-item">
+        <span>Email:</span>
+        <span>contact&#64;marsamaroc.ma</span>
+      </div>
+      <div class="info-item">
+        <span>Téléphone:</span>
+        <span>+212 123456789</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showAboutusForm " class="About-info-container">
+    <div class="social-media-icons">
+      <a href="https://www.linkedin.com/company/marsa-maroc/mycompany/">
+        <i class="fab fa-linkedin-in" style="font-size: 50px;"></i>
+      </a>
+      <a href="https://www.instagram.com/marsamarocofficiel/" >
+        <i class="fab fa-instagram" style="font-size: 50px;"></i>
+      </a>
+    </div>
+  </div>
+</div>

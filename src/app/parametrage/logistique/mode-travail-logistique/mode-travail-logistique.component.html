@@ -1,0 +1,85 @@
+<form [formGroup]="modeTravailForm" (ngSubmit)="onSubmit()" class="container form-container" *ngIf="!isUpdating">
+  <div class="mode-travail-container">
+    <h1 class="title">Mode de travail</h1>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="subtitle">Semaine</h3>
+        <mat-radio-group class="radio-group" formControlName="semaine">
+          <mat-radio-button *ngFor="let periodeS of periodeSemaine" [value]="periodeS">{{ periodeS }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="col-md-6">
+        <h3 class="subtitle">Jour</h3>
+        <mat-radio-group class="radio-group" formControlName="jour">
+          <mat-radio-button *ngFor="let periodeJ of periodeJour" [value]="periodeJ">{{ periodeJ }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <button type="submit" class="btn btn-success">Valider</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form [formGroup]="modeTravailUpdateForm" (ngSubmit)="onUpdateSubmit()" class="container form-container" *ngIf="isUpdating">
+  <div class="mode-travail-container">
+    <h2>Update Mode de Travail</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="subtitle">Semaine</h3>
+        <mat-radio-group class="radio-group" formControlName="semaine">
+          <mat-radio-button *ngFor="let periodeS of periodeSemaine" [value]="periodeS">{{ periodeS }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="col-md-6">
+        <h3 class="subtitle">Jour</h3>
+        <mat-radio-group class="radio-group" formControlName="jour">
+          <mat-radio-button *ngFor="let periodeJ of periodeJour" [value]="periodeJ">{{ periodeJ }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <button type="submit" class="btn btn-success">Update</button>
+        <button type="button" class="btn btn-danger" (click)="onCancelUpdate()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="container">
+  <button class="btn btn-info btn-block" (click)="toggleModeTrvail()">Afficher les ModesDeTravil</button>
+</div>
+
+<div class="table-container" *ngIf="showModesTravail">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Semaine</th>
+      <th>Jour</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let modeTravail of modesTravail">
+      <td>{{ modeTravail.semaine }}</td>
+      <td>{{ modeTravail.jour }}</td>
+      <td>
+        <div class="button-container">
+          <button class="fa" (click)="deleteModeDeTravail(modeTravail.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+          <button class="fa" (click)="updateModeTravail(modeTravail)">
+            <i class="fas fa-pen"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

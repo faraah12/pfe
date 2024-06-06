@@ -1,0 +1,95 @@
+h1 {
+  padding: 0 1rem;
+}
+
+h2 {padding: 1rem;}
+
+.mat-toolbar{
+  position:fixed;
+  top:0;
+  z-index: 2;
+  background-color: #B52000;
+  width: 100%; /* Ensure the toolbar spans the entire width of the page */
+
+}
+
+mat-sidenav-container {
+  height:100%;
+
+}
+
+mat-sidenav {
+  padding-top: 3.5rem;
+  position:fixed;
+  background-color: lightgrey;
+}
+
+@media screen and (min-width: 600px) {
+  mat-sidenav {
+    padding-top: 4rem;
+  }
+}
+
+.entry{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding:0.75rem;
+}
+
+mat-sidenav-content{
+  padding-top: 3.5rem;}
+
+@media screen and (min-width: 600px) {
+  mat-sidenav-content{
+    padding-top: 4rem;}
+  }
+.expanded {
+  width: 250px;
+}
+.logo {
+  width: 5%;
+}
+.menu-heading {
+
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: larger;
+}
+
+.sub-menu {
+  margin-left: 25px;
+  font-size: medium;
+
+}
+
+.sub-sub-menu {
+  font-size: small;
+  font-weight: bold;
+
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0; /* Text is invisible */
+  }
+  50% {
+    opacity: 1; /* Text is fully visible */
+  }
+  100% {
+    opacity: 0; /* Text is invisible again */
+  }
+}
+
+.welcome-text {
+  position: absolute;
+  white-space: nowrap;
+  width: 100%;
+  color: white;
+  font-size: 20px;
+  margin-left: 500px;
+  animation: blink 2s infinite; /* Blinking animation */
+}
+
+
+

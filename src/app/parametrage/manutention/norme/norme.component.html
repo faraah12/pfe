@@ -1,0 +1,141 @@
+<div class="container">
+  <div class="dropdown">
+    <button class="dropdown-toggle" [matMenuTriggerFor]="plus" >+</button>
+    <mat-menu #plus>
+      <button mat-menu-item (click)="toggleAdd()">Add</button>
+      <button mat-menu-item (click)="togglelist()">List</button>
+      <button mat-menu-item (click)="toggledownload()">Download</button>
+    </mat-menu>
+  </div>
+
+  @if (!isAdd && !isUpdating){
+    <mat-card class="nomre-card" >
+      <mat-card-content>
+        <table matSort mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="main">
+            <th mat-header-cell *matHeaderCellDef> MainTheorique </th>
+            <td mat-cell *matCellDef="let norme"> {{norme.mainTheorique}} </td>
+          </ng-container>
+          <ng-container matColumnDef="trafic">
+            <th mat-header-cell *matHeaderCellDef> Trafic </th>
+            <td mat-cell *matCellDef="let norme"> {{norme.trafic}} </td>
+          </ng-container>
+          <ng-container matColumnDef="mode">
+            <th mat-header-cell *matHeaderCellDef> Mode </th>
+            <td mat-cell *matCellDef="let norme"> {{norme.mode}} </td>
+          </ng-container>
+          <ng-container matColumnDef="sens">
+            <th mat-header-cell *matHeaderCellDef> Sens </th>
+            <td mat-cell *matCellDef="let norme"> {{norme.sens}} </td>
+          </ng-container>
+          <ng-container matColumnDef="nature">
+            <th mat-header-cell *matHeaderCellDef> Nature du produit </th>
+            <td mat-cell *matCellDef="let norme"> {{norme.natureduproduit}} </td>
+          </ng-container>
+          <ng-container matColumnDef="norme">
+            <th mat-header-cell *matHeaderCellDef> Norme</th>
+            <td mat-cell *matCellDef="let norme"> {{norme.norme}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let norme">
+              <button mat-raised-button (click)="deleteNorme(norme.id)" color="accent">
+                <mat-icon class="fas fa-trash"></mat-icon>
+              </button>
+              <button mat-raised-button (click)="updateNorme(norme)" color="accent">
+                <mat-icon class="fas fa-pen"></mat-icon>
+              </button>
+
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons>
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  }
+
+<form [formGroup]="normeForm" (ngSubmit)="ajouter()" class="form-container" *ngIf="isAdd">
+      <div class="form-group">
+        <h3>Trafic :</h3>
+        <select  formControlName="traficId" class="form-control" required>
+          <option *ngFor="let trafics of trafics" [value]="trafics.id">{{ trafics.name }} </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Sélectionnez la main theorique :</label>
+        <select formControlName="mainTheoriqueId" class="form-control">
+          <option *ngFor="let mode of mainstheorique" [value]="mode.id">{{ mode.nom }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <h3> Mode:</h3>
+        <select  formControlName="modeId" class="form-control">
+          <option *ngFor="let modes of modes" [value]="modes.id">{{ modes.name }} </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="norme">Norme:</label>
+        <input type="text" id="norme" formControlName="norme" class="form-control" placeholder="Entrez la norme">
+      </div>
+  <div class="form-group">
+    <label>Sens :</label>
+    <mat-radio-group class="radio-group" formControlName="sens">
+      <mat-radio-button *ngFor="let sens of sens" [value]="sens">{{ sens }}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="form-group">
+        <label>Nature suivi du produit :</label>
+        <mat-radio-group class="radio-group" formControlName="natureduproduit">
+          <mat-radio-button *ngFor="let natureduproduit of natureduproduit" [value]="natureduproduit">{{ natureduproduit }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Soumettre</button>
+    </form>
+
+
+<!--    <form [formGroup]="normeUpdateForm" (ngSubmit)="onUpdateSubmit()" class="plan-form" *ngIf="isUpdating">-->
+<!--        &lt;!&ndash; Menu déroulant pour "Trafic" &ndash;&gt;-->
+<!--        <div class="form-group">-->
+<!--          <h3>Trafic :</h3>-->
+<!--          <select  formControlName="traficId" class="form-control" required>-->
+<!--            <option *ngFor="let trafics of trafics" [value]="trafics.id">{{ trafics.name }} </option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label>Sélectionnez la main theorique :</label>-->
+<!--          <select formControlName="mainTheoriqueId" class="form-control">-->
+<!--            <option *ngFor="let mode of mainstheorique" [value]="mode.id">{{ mode.nom }}</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <h3> Mode:</h3>-->
+<!--          <select  formControlName="modeId" class="form-control">-->
+<!--            <option value="" disabled selected>Choisir un mode</option>-->
+<!--            <option *ngFor="let modes of modes" [value]="modes.id">{{ modes.name }} </option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label for="norme">Norme:</label>-->
+<!--          <input type="text" id="norme2" formControlName="norme" class="form-control" placeholder="Entrez la norme">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label>Sens :</label>-->
+<!--          <mat-radio-group class="radio-group" formControlName="sens">-->
+<!--            <mat-radio-button *ngFor="let sens of sens" [value]="sens">{{ sens }}</mat-radio-button>-->
+<!--          </mat-radio-group>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label>Nature suivi du produit :</label>-->
+<!--          <mat-radio-group class="radio-group" formControlName="natureduproduit">-->
+<!--            <mat-radio-button *ngFor="let natureduproduit of natureduproduit" [value]="natureduproduit">{{ natureduproduit }}</mat-radio-button>-->
+<!--          </mat-radio-group>-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary btn-block">update</button>-->
+<!--      </form>-->
+
+
+</div>

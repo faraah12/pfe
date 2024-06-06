@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="dropdown">
+    <button class="dropdown-toggle" [matMenuTriggerFor]="plus" >+</button>
+    <mat-menu #plus>
+      <button mat-menu-item (click)="toggleAdd()">Add</button>
+      <button mat-menu-item (click)="togglelist()">List</button>
+    </mat-menu>
+  </div>
+  @if (!isAdd && !isUpdating){
+    <mat-card class="modetravail-card" >
+      <mat-card-content>
+        <table matSort mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="jour">
+            <th mat-header-cell *matHeaderCellDef> Jour </th>
+            <td mat-cell *matCellDef="let modetravail"> {{modetravail.jour}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Semaine">
+            <th mat-header-cell *matHeaderCellDef> Semaine </th>
+            <td mat-cell *matCellDef="let modetravail"> {{modetravail.semaine}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let modetravail">
+              <button mat-raised-button (click)="deleteModeDeTravail(modetravail.id)" color="accent">
+                <mat-icon class="fas fa-trash"></mat-icon>
+              </button>
+              <button mat-raised-button (click)="updateModeTravail(modetravail)" color="accent">
+                <mat-icon class="fas fa-pen"></mat-icon>
+              </button>
+
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons>
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <form [formGroup]="modeTravailForm" (ngSubmit)="onSubmit()" class="form-container" *ngIf="isAdd">
+  <h1 class="title">Mode de travail</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="subtitle">Semaine</h3>
+        <mat-radio-group class="radio-group" formControlName="semaine">
+          <mat-radio-button *ngFor="let periodeS of periodeSemaine" [value]="periodeS">{{ periodeS }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="col-md-6">
+        <h3 class="subtitle">Jour</h3>
+        <mat-radio-group class="radio-group" formControlName="jour">
+          <mat-radio-button *ngFor="let periodeJ of periodeJour" [value]="periodeJ">{{ periodeJ }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+        <button type="submit" class="btn btn-success">Valider</button>
+</form>
+
+
+<form [formGroup]="modeTravailUpdateForm" (ngSubmit)="onUpdateSubmit()" class="form-container" *ngIf="isUpdating">
+  <div class="mode-travail-container">
+    <h2>Update Mode de Travail</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="subtitle">Semaine</h3>
+        <mat-radio-group class="radio-group" formControlName="semaine">
+          <mat-radio-button *ngFor="let periodeS of periodeSemaine" [value]="periodeS">{{ periodeS }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="col-md-6">
+        <h3 class="subtitle">Jour</h3>
+        <mat-radio-group class="radio-group" formControlName="jour">
+          <mat-radio-button *ngFor="let periodeJ of periodeJour" [value]="periodeJ">{{ periodeJ }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <button type="submit" class="btn btn-success">Update</button>
+        <button type="button" class="btn btn-danger" (click)="onCancelUpdate()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>
+</div>

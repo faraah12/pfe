@@ -1,0 +1,264 @@
+<mat-toolbar>
+  <img class="logo" src="assets/M53.png" alt="Logo MarsaMaroc" (click)="toggleMenu()">
+  <h1 class="welcome-text">Welcome to this application </h1>
+</mat-toolbar>
+<mat-sidenav-container autosize>
+<mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : ''"
+    [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile">
+    <mat-nav-list>
+      <a mat-list-item (click)="toggleHome()" >
+      <span class="entry">
+        <mat-icon>house</mat-icon>
+        <span class="menu-heading" *ngIf="!isCollapsed">Home</span>
+      </span>
+      </a>
+      <!-----------------------------------------PARAMETRAGE-------------------------------------------------------------------------------------------->
+
+      <mat-divider></mat-divider>
+      <a mat-list-item (click)="toggleParametrage()">
+      <span class="entry">
+        <mat-icon>settings</mat-icon>
+        <span class="menu-heading" *ngIf="!isCollapsed">Paramétrage</span>
+      </span>
+      </a>
+
+      <div *ngIf="isParametrageOpen">
+        <mat-list>
+          <a mat-list-item  (click)="toggleManutention()">
+          <span class="entry">
+            <mat-icon>directions_boat</mat-icon>
+            <span class="sub-menu" *ngIf="!isCollapsed">Manutention</span>
+          </span>
+          </a>
+
+          <!-- Sous-éléments de "Manutention" -->
+          <div *ngIf="isManutentionOpen">
+            <mat-list>
+              <a mat-list-item routerLink="/parametrage/manutention/mode-travail" (click)="toggleModeTravail()">
+          <span class="entry">
+            <mat-icon>work_outline</mat-icon>
+            <span class="sub-sub-menu" *ngIf="!isCollapsed">Mode de Travail</span>
+          </span>
+              </a>`
+              <a mat-list-item routerLink="/parametrage/manutention/periode-shift" (click)="togglePeriodeShift()">
+          <span class="entry">
+            <mat-icon>schedule</mat-icon>
+            <span class = "sub-sub-menu"*ngIf="!isCollapsed">Période Shift</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/manutention/equipe" (click) ="toggleEquipe()">
+          <span class="entry">
+            <mat-icon>group</mat-icon>
+            <span class="sub-sub-menu"*ngIf="!isCollapsed">Equipe</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/manutention/plan-roulement" (click)="togglePlanRoulement()">
+          <span class="entry">
+            <mat-icon>list_alt</mat-icon>
+            <span class="sub-sub-menu" *ngIf="!isCollapsed">Plan de Roulement</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/manutention/mode-theorique" (click)="toggleModeTheorique()">
+          <span class="entry">
+            <mat-icon>build</mat-icon>
+            <span class="sub-sub-menu" *ngIf="!isCollapsed">Main Théorique</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/manutention/norme" (click)="toggleNorme()">
+          <span class="entry">
+            <mat-icon>rule</mat-icon>
+            <span class="sub-sub-menu" *ngIf="!isCollapsed">Norme</span>
+          </span>
+              </a>
+            </mat-list>
+          </div>
+        </mat-list>
+      </div>
+<!----------------------------------------------------------------------------------------------------------------------------------------->
+
+      <div *ngIf="isParametrageOpen">
+        <mat-list>
+          <a mat-list-item  (click)="toggleMarine()">
+          <span class="entry">
+            <mat-icon>waves</mat-icon>
+            <span class="sub-menu" *ngIf="!isCollapsed">Marine</span>
+          </span>
+          </a>
+          <!-- Sous-éléments de "Marine" -->
+          <div *ngIf="isMarineOpen">
+            <mat-list>
+              <a mat-list-item routerLink="/parametrage/marine/mode-travail-marine" (click)="toggleModeTravailMarine()">
+          <span class="entry">
+            <mat-icon>work_outline</mat-icon>
+            <span class="sub-sub-menu" *ngIf="!isCollapsed">Mode de Travail</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/marine/periode-shift-marine" (click)="togglePeriodeShiftMarine()">
+          <span class="entry">
+            <mat-icon>schedule</mat-icon>
+            <span class = "sub-sub-menu"*ngIf="!isCollapsed">Période Shift</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/marine/equipe-marine" (click) ="toggleEquipeMarine()">
+          <span class="entry">
+            <mat-icon>group</mat-icon>
+            <span class="sub-sub-menu"*ngIf="!isCollapsed">Equipe</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/marine/plan-roulement-marine" (click)="togglePlanRoulementMarine()">
+          <span class="entry">
+            <mat-icon>list_alt</mat-icon>
+            <span class="sub-sub-menu" *ngIf="!isCollapsed">Plan de Roulement</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/marine/mode-theorique-marine" (click)="toggleModeTheoriqueMarine()">
+          <span class="entry">
+            <mat-icon>build</mat-icon>
+            <span class="sub-sub-menu" *ngIf="!isCollapsed">Main Théorique</span>
+          </span>
+              </a>
+            </mat-list>
+          </div>
+        </mat-list>
+      </div>
+          <!----------------------------------------------------------------------------------------------------------------------------------------->
+      <div *ngIf="isParametrageOpen">
+        <mat-list>
+          <a mat-list-item  (click)="toggleLogistique()">
+          <span class="entry">
+            <mat-icon>local_shipping</mat-icon>
+            <span class="sub-menu" *ngIf="!isCollapsed">Logistique</span>
+          </span>
+          </a>
+          <div *ngIf="isLogistoqiueOpen">
+            <mat-list>
+              <a mat-list-item routerLink="/parametrage/logistique/mode-travail-logistique" (click)="toggleModeTravailLogistique()">
+          <span class="entry">
+            <mat-icon>work_outline</mat-icon>
+            <span class="sub-sub-menu" *ngIf="!isCollapsed">Mode de Travail</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/logistique/periode-shift-logistique" (click)="togglePeriodeShiftLogistique()">
+          <span class="entry">
+            <mat-icon>schedule</mat-icon>
+            <span class = "sub-sub-menu"*ngIf="!isCollapsed">Période Shift</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/logistique/equipe-logistique" (click) ="toggleEquipeLogistique()">
+          <span class="entry">
+            <mat-icon>group</mat-icon>
+            <span class="sub-sub-menu"*ngIf="!isCollapsed">Equipe</span>
+          </span>
+              </a>
+              <a mat-list-item routerLink="/parametrage/logistique/plan-roulement-logistique" (click)="togglePlanRoulementLogistique()">
+          <span class="entry">
+            <mat-icon>list_alt</mat-icon>
+            <span class="sub-sub-menu" *ngIf="!isCollapsed">Plan de Roulement</span>
+          </span>
+              </a>
+        </mat-list>
+      </div>
+        </mat-list>
+      </div>
+      <!----------------------------------EXPLOITATION--------------------------------------------------------------------------------------------->
+
+      <mat-divider></mat-divider>
+
+      <a mat-list-item (click)="toggleExploitation()">
+
+      <span class="entry">
+        <mat-icon>work</mat-icon>
+        <span class="menu-heading" *ngIf="!isCollapsed">Exploitation</span>
+      </span>
+      </a>
+
+      <div *ngIf="isExploitationOpen">
+        <mat-list>
+          <a mat-list-item routerLink="/parametrage/manutention" (click)="toggleManutention()">
+          <span class="entry">
+            <mat-icon>directions_boat</mat-icon>
+            <span class="sub-menu" *ngIf="!isCollapsed">Manutention</span>
+          </span>
+          </a>
+          <a mat-list-item routerLink="/parametrage/marine">
+          <span class="entry">
+            <mat-icon>waves</mat-icon>
+            <span class="sub-menu" *ngIf="!isCollapsed">Marine</span>
+          </span>
+          </a>
+          <a mat-list-item routerLink="/parametrage/logistique">
+          <span class="entry">
+            <mat-icon>local_shipping</mat-icon>
+            <span class="sub-menu" *ngIf="!isCollapsed">Logistique</span>
+          </span>
+          </a>
+        </mat-list>
+      </div>
+      <!---------------------------------ADMIN------------------------------------------------------------------------------------------------------->
+
+      <mat-divider></mat-divider>
+      <a mat-list-item (click)="toggleAdministration()">
+      <span class="entry">
+        <mat-icon>admin_panel_settings</mat-icon>
+        <span class="menu-heading" *ngIf="!isCollapsed">Administration</span>
+      </span>
+      </a>
+      <div *ngIf="isAdministrationOpen">
+        <mat-list>
+          <a mat-list-item routerLink="/administration/droit-de-profil">
+          <span class="entry">
+            <mat-icon>settings</mat-icon>
+            <span class="sub-menu" *ngIf="!isCollapsed">Droit de profil</span>
+          </span>
+          </a>
+          <a mat-list-item routerLink="/administration/create-user" (click)="toggleCreateUser()">
+          <span class="entry">
+            <mat-icon>person_add</mat-icon>
+            <span class="sub-menu" *ngIf="!isCollapsed">Création User</span>
+          </span>
+          </a>
+          </mat-list>
+      </div>
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="d-flex justify-content-center align-items-center h-100">
+
+    <app-mode-travail *ngIf="isModeTravailSelected"></app-mode-travail>
+    <app-accueil *ngIf="isHomeSelected"></app-accueil>
+    <app-periode-shift *ngIf="isPeriodeShiftSelected"></app-periode-shift>
+    <app-equipe *ngIf="isEquipeSelected"></app-equipe>
+    <app-plan-roulement *ngIf="isPlanRoulementSelected"></app-plan-roulement>
+    <app-mode-theorique *ngIf="isModeTheoriqueSelected"></app-mode-theorique>
+    <app-norme *ngIf="isNormeSelected"></app-norme>
+    <app-create-user *ngIf="isCreateUserSelected"></app-create-user>
+    <app-mode-travail-marine *ngIf="isModeTravailMarineSelected"></app-mode-travail-marine>
+      <app-mode-travail-logistique *ngIf="isModeTravailLogistiqueSelected"></app-mode-travail-logistique>
+      <app-periode-shift-marine *ngIf="isPeriodeShiftMarineSelected"></app-periode-shift-marine>
+      <app-equipe-marine *ngIf="isEquipeMarineSelected"></app-equipe-marine>
+      <app-plan-roulement-marine *ngIf="isPlanRoulementMarineSelected"></app-plan-roulement-marine>
+      <app-mode-theorique-marine *ngIf="isModeTheoriqueMarineSelected"></app-mode-theorique-marine>
+      <app-periode-shift-logistique *ngIf="isPeriodeShiftLogistiqueSelected"></app-periode-shift-logistique>
+      <app-equipe-logistique *ngIf="isEquipeLogistiqueSelected"></app-equipe-logistique>
+      <app-plan-roulement-logistique *ngIf="isPlanRoulementLogistiqueSelected"></app-plan-roulement-logistique>
+    </div>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+
+
+</mat-sidenav-container>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Votre Titre</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<!-- Déclaration du formulaire avec formGroup -->
+<div class="container">
+<form [formGroup]="modetheoriqueForm" class="maintheorique-form">
+  <!-- Champ de saisie pour le nom -->
+  <div class="form-group">
+    <label for="nom-main-theorique">Nom Main Théorique :</label>
+    <input type="text" id="nom-main-theorique" formControlName="nom" class="form-control">
+  </div>
+
+  <!-- Liste déroulante pour la prestation -->
+  <div class="form-group">
+    <label for="prestation">Prestation :</label>
+    <select id="prestation" formControlName="prestationId" class="form-control">
+      <option value="1">Manutention</option>
+      <option value="2">Marine</option>
+    </select>
+    <input type="hidden" formControlName="prestationId">
+
+  </div>
+
+  <!-- Liste déroulante pour le type de trafic -->
+  <div class="form-group">
+    <label for="type-trafic">Type de Trafic :</label>
+    <select id="type-trafic" formControlName="typeTraficId" class="form-control">
+      <option value="1">Sacherie et Divers</option>
+      <option value="2">Vrac</option>
+      <option value="3">Conteneur</option>
+    </select>
+    <input type="hidden" formControlName="typeTraficId">
+  </div>
+
+  <!-- Liste déroulante pour le trafic -->
+  <div class="form-group">
+    <label for="trafic">Trafic :</label>
+    <select id="trafic" formControlName="traficId" class="form-control">
+      <option value="1">Pallette</option>
+      <option value="2">Bib Bag</option>
+    </select>
+    <input type="hidden" formControlName="traficId">
+
+  </div>
+
+  <!-- Bouton Charger -->
+  <div class="button-container">
+    <button type="button" class="button" (click)="charger()">Charger</button>
+  </div>
+
+  <!-- Ressources Humaines -->
+  <div class="rh-container" *ngIf="afficherFormulaires">
+    <h2>Ressources Humaines</h2>
+    <div class="form-group">
+      <label for="fonctions">Fonction :</label>
+      <select id="fonctions" formControlName="fonctionsId" class="form-control">
+        <option value="1">CE</option>
+        <option value="2">CEQ</option>
+        <option value="3">CER</option>
+      </select>
+      <input type="hidden" formControlName="fonctionsId">
+
+    </div>
+
+    <div class="form-group">
+      <label for="total">Nombre total :</label>
+      <input type="text" id="total" formControlName="total" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="nombreSurBord">Bord :</label>
+      <input type="text" id="nombreSurBord" formControlName="nombreSurBord" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="nombreAuQuai">Quai :</label>
+      <input type="text" id="nombreAuQuai" formControlName="nombreAuQuai" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="nombreArriere">Arrière :</label>
+      <input type="text" id="nombreArriere" formControlName="nombreArriere" class="form-control">
+    </div>
+  </div>
+
+  <!-- Ressources Matérielles -->
+  <div class="rm-container" *ngIf="afficherFormulaires">
+    <h2>Ressources Matérielles</h2>
+    <div class="form-group">
+      <label for="equipement-famille">Équipement Famille :</label>
+      <select id="equipement-famille" formControlName="equipementFamilleId" class="form-control">
+        <option value="1">Grue</option>
+        <option value="2">Élévateur</option>
+        <option value="3">Remorque</option>
+      </select>
+      <input type="hidden" formControlName="equipementFamilleId">
+
+    </div>
+
+    <div class="form-group">
+      <label for="equipement-choix">Équipement :</label>
+      <select id="equipement-choix" formControlName="equipementId" class="form-control">
+        <option value="1">Grue 45t</option>
+        <option value="2">Grue 65t</option>
+      </select>
+      <input type="hidden" formControlName="equipementId">
+    </div>
+
+    <div class="form-group">
+      <label for="accessoire">Accessoire :</label>
+      <select id="accessoire" formControlName="accessoireId" class="form-control">
+        <option value="1">Palonier 50t</option>
+      </select>
+      <input type="hidden" formControlName="accessoireId">
+    </div>
+  </div>
+
+  <!-- Bouton Soumettre -->
+  <div class="button-container">
+    <button type="button" class="button" (click)="onSubmit()">Soumettre</button>
+  </div>
+</form>
+</div>
+</body>
+</html>
+<div class="button-container">
+  <button class="btn btn-info btn-block" (click)="toggleMains()">Afficher les Mains</button>
+</div>
+
+<div class="container" *ngIf="showMains">
+  <div class="content">
+    <div class="modes-travail">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prestation</th>
+          <th>Accessoire</th>
+          <th>EquipementFa</th>
+          <th>Equipement</th>
+          <th>Fonction</th>
+          <th>Total</th>
+          <th>Bord</th>
+          <th>Quai</th>
+          <th>Arriere</th>
+          <th>Trafic</th>
+          <th>TypeTrafic</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let main of modestheorique">
+          <td>{{ main.nom }}</td>
+          <td>{{ main.prestation }}</td>
+          <td>{{ main.accessoire }}</td>
+          <td>{{ main.equipementFamille }}</td>
+          <td>{{ main.equipement }}</td>
+          <td>{{ main.fonction }}</td>
+          <td>{{ main.total }}</td>
+          <td>{{ main.nombreSurBord }}</td>
+          <td>{{ main.nombreAuQuai }}</td>
+          <td>{{ main.nombreArriere }}</td>
+          <td>{{ main.trafic }}</td>
+          <td>{{ main.typeTrafic }}</td>
+          <button class="fa" (click)="deleteMain(main.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>

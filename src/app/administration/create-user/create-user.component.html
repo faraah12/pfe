@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="create-user-container">
+    <h2>Création d'utilisateur</h2>
+
+    <!-- Afficher un message d'erreur pour le formulaire -->
+    <div *ngIf="formValidationError" class="error-message">{{ formValidationError }}</div>
+
+    <div class="form-group">
+      <label for="matricule">Matricule :</label>
+      <input type="text" class="form-control" id="matricule" [(ngModel)]="matricule" (blur)="checkMatricule()" [ngClass]="{'error-input': !matriculeFormatValid}">
+      <!-- Ajouter un message d'erreur pour la validation du format du matricule -->
+      <div *ngIf="!matriculeFormatValid" class="error-message">Le matricule doit contenir à la fois des lettres et des chiffres.</div>
+      <!-- Ajouter un message d'erreur pour la validation de l'existence du matricule -->
+      <div *ngIf="matriculeExists" class="error-message">Ce matricule existe déjà.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="nom">Nom :</label>
+      <input type="text" class="form-control" id="nom" [(ngModel)]="nom">
+    </div>
+
+    <div class="form-group">
+      <label for="prenom">Prénom :</label>
+      <input type="text" class="form-control" id="prenom" [(ngModel)]="prenom">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Mot de passe :</label>
+      <input type="password" class="form-control" id="password" [(ngModel)]="password" (input)="validatePassword()">
+      <!-- Ajouter un message d'erreur pour la validation du mot de passe -->
+      <div *ngIf="passwordValidationMessage" class="error-message">{{ passwordValidationMessage }}</div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirmer le mot de passe :</label>
+      <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="confirmPassword" (input)="checkPasswords()" [ngClass]="{'error-input': passwordsMatch === false}">
+      <!-- Ajouter un message d'erreur pour la correspondance des mots de passe -->
+      <div *ngIf="passwordsMatch === false" class="error-message">Les mots de passe ne sont pas identiques.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="profil">Profil affecté :</label>
+      <select class="form-control" id="profil" [(ngModel)]="selectedProfil">
+        <option value="responsablePrevision">Responsable de prévision</option>
+        <option value="responsableRealisation">Responsable de réalisation</option>
+      </select>
+    </div>
+
+    <div class="button-group">
+      <button class="btn btn-primary" (click)="addProfil()">Ajouter Profil</button>
+    </div>
+
+    <div class="profil-list">
+      <h4>Profils affectés :</h4>
+      <ul>
+        <li *ngFor="let profil of profils">{{ profil }}</li>
+      </ul>
+    </div>
+
+    <div class="arrow-buttons">
+      <button class="btn btn-secondary" (click)="moveProfil('left')">←</button>
+      <button class="btn btn-secondary" (click)="moveProfil('right')">→</button>
+    </div>
+  </div>
+
+</div>

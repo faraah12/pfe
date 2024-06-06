@@ -1,0 +1,121 @@
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+.form-container {
+  background-color: lightcyan; /* Apply background color */
+  padding: 20px; /* Add padding */
+  border-radius: 10px; /* Add border radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow */
+  margin: 0 auto; /* Center the container horizontally */
+  max-width: 600px; /* Set the maximum width of the container */
+}
+
+
+/* Styles pour le conteneur principal */
+.container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Styles pour le titre */
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Styles pour le sous-titre */
+.subtitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+/* Styles pour les boutons */
+.btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Styles pour le bouton de validation */
+.btn-success {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+}
+
+/* Styles pour le bouton "Afficher les ModesDeTravail" */
+.btn-info {
+  background-color: #2196F3;
+  border: none;
+  color: white;
+}
+/* Styles for the table container */
+.table-container {
+  width: 55%; /* Adjust the width of the container */
+  margin: auto; /* Center the container horizontally */
+  background-color: lightcyan; /* Add background color */
+  padding: 20px; /* Add padding */
+  border-radius: 10px; /* Add border radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow */
+}
+
+
+.table {
+  width: 100%; /* Adjust the width of the table */
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: left;
+}
+
+.table td {
+  text-align: left;
+}
+
+.container-liste {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Styles for the delete button container */
+.button-container {
+  text-align: center; /* Center the icon */
+}
+
+/* Trash icon styles */
+.fa-trash {
+  font-size: 1.5em; /* Adjust the size of the trash icon */
+  color: #dc3545;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.fa-trash:hover {
+  color: #c82333;
+}
+
+/* Styles to hide the cell */
+.button-cell {
+  border: none; /* Remove borders */
+  background-color: transparent; /* Make the background transparent */
+  padding: 0; /* Remove padding */
+}
+
+
+

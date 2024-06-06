@@ -1,0 +1,112 @@
+
+<form [formGroup]="planDeRoulementForm" (ngSubmit)="onSubmit()" class="plan-form" *ngIf="!isUpdating">
+  <div class="form-group">
+    <h3>Sélectionnez le mode de travail :</h3>
+    <select formControlName="modeDeTravailId" class="form-control">
+      <option *ngFor="let mode of modesDeTravail" [value]="mode.id">{{ mode.semaine }} jour / Shifts : {{ mode.jour }} shift</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <h3>Sélectionnez l'équipe :</h3>
+    <select formControlName="equipeId" class="form-control">
+      <option *ngFor="let equipe of equipes" [value]="equipe.id">{{ equipe.name }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <h3>Choisissez la période :</h3>
+    <mat-radio-group class="radio-group" formControlName="choixPeriode">
+      <mat-radio-button *ngFor="let periode of periods" [value]="periode">{{ periode }}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="form-group">
+    <h3>Choisissez le shift :</h3>
+    <mat-radio-group class="radio-group" formControlName="choixShift">
+      <mat-radio-button *ngFor="let shift of Shifts" [value]="shift">{{ shift }}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="form-group">
+    <label>Date de début :</label>
+    <input type="date" formControlName="dateDebut" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Date de fin :</label>
+    <input type="date" formControlName="dateFin" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Soumettre</button>
+</form>
+
+<form [formGroup]="planDeRoulementUpdateForm" (ngSubmit)="onUpdateSubmit()" class="plan-form" *ngIf="isUpdating">
+  <div class="form-group">
+    <h3>Sélectionnez le mode de travail :</h3>
+    <select formControlName="modeDeTravailId" class="form-control">
+      <option *ngFor="let mode of modesDeTravail" [value]="mode.id">{{ mode.semaine }} jour / Shifts : {{ mode.jour }} shift</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <h3>Sélectionnez l'équipe :</h3>
+    <select formControlName="equipeId" class="form-control">
+      <option *ngFor="let equipe of equipes" [value]="equipe.id">{{ equipe.name }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <h3>Choisissez la période :</h3>
+    <mat-radio-group class="radio-group" formControlName="choixPeriode">
+      <mat-radio-button *ngFor="let periode of periods" [value]="periode">{{ periode }}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="form-group">
+    <h3>Choisissez le shift :</h3>
+    <mat-radio-group class="radio-group" formControlName="choixShift">
+      <mat-radio-button *ngFor="let shift of Shifts" [value]="shift">{{ shift }}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="form-group">
+    <label>Date de début :</label>
+    <input type="date" formControlName="dateDebut" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Date de fin :</label>
+    <input type="date" formControlName="dateFin" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">update</button>
+  <button type="button" class="btn btn-primary" (click)="onCancelUpdate()">Cancel</button>
+</form>
+
+
+<div class="container">
+  <button class="toggle-button" (click)="togglePlans()">Afficher les Plans</button>
+</div>
+
+
+<div class="container " *ngIf="showPlans" id="tab">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Nom de l'équipe</th>
+      <th>Mode de Travail</th>
+      <th>Date Début</th>
+      <th>Date Fin</th>
+      <th>Shift</th>
+      <th>Période</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let plan of Plans">
+      <td>{{ plan.equipe}}</td>
+      <td>{{ plan.modeDeTravail }}</td>
+      <td>{{ plan.dateDebut }}</td>
+      <td>{{ plan.dateFin }}</td>
+      <td>{{ plan.choixShift }}</td>
+      <td>{{ plan.choixPeriode }}</td>
+      <td>
+        <button class="fa" (click)="deletePlan(plan.id)">
+          <i class="fas fa-trash"></i>
+        </button>
+        <button class="fa" (click)="updatePlan(plan)">
+          <i class="fas fa-pen"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,265 @@
+
+<div class="container">
+
+  <div class="dropdown">
+    <button class="dropdown-toggle" [matMenuTriggerFor]="plus" >+</button>
+    <mat-menu #plus>
+      <button mat-menu-item (click)="toggleAdd()">Add</button>
+      <button mat-menu-item (click)="togglelist()">List</button>
+      <button mat-menu-item (click)="toggledownload()">Download</button>
+
+    </mat-menu>
+  </div>
+
+  @if (!isAdd && !isUpdating){
+    <mat-card class="mode-card" >
+      <mat-card-content>
+        <table matSort mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef> nom </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.nom}} </td>
+          </ng-container>
+          <ng-container matColumnDef="prestation">
+            <th mat-header-cell *matHeaderCellDef> prestation </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.prestation}} </td>
+          </ng-container>
+          <ng-container matColumnDef="typetrafic">
+            <th mat-header-cell *matHeaderCellDef> typetrafic </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.typeTrafic}} </td>
+          </ng-container>
+          <ng-container matColumnDef="tarfic">
+            <th mat-header-cell *matHeaderCellDef> tarfic </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.trafic}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fonction">
+            <th mat-header-cell *matHeaderCellDef> fonction </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.fonction}} </td>
+          </ng-container>
+          <ng-container matColumnDef="nombretotal">
+            <th mat-header-cell *matHeaderCellDef> nombretotal </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.total}} </td>
+          </ng-container>
+          <ng-container matColumnDef="bord">
+            <th mat-header-cell *matHeaderCellDef> bord </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.nombreSurBord}} </td>
+          </ng-container>
+          <ng-container matColumnDef="quai">
+            <th mat-header-cell *matHeaderCellDef> quai </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.nombreAuQuai}} </td>
+          </ng-container>
+          <ng-container matColumnDef="arriere">
+            <th mat-header-cell *matHeaderCellDef> arriere </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.nombreArriere}} </td>
+          </ng-container>
+          <ng-container matColumnDef="equipementf">
+            <th mat-header-cell *matHeaderCellDef> equipementf </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.equipementFamille}} </td>
+          </ng-container>
+          <ng-container matColumnDef="equipement">
+            <th mat-header-cell *matHeaderCellDef> equipement </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.equipement}} </td>
+          </ng-container>
+          <ng-container matColumnDef="accesoire">
+            <th mat-header-cell *matHeaderCellDef> accesoire </th>
+            <td mat-cell *matCellDef="let plan"> {{plan.accessoire}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let plan">
+              <button mat-raised-button (click)="deleteMain(plan.id)" color="accent">
+                <mat-icon class="fas fa-trash"></mat-icon>
+              </button>
+              <button mat-raised-button (click)="updateMode(plan)" color="accent">
+                <mat-icon class="fas fa-pen"></mat-icon>
+              </button>
+
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons>
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  }
+  <form [formGroup]="modetheoriqueForm" class="form-container" *ngIf="isAdd">
+  <div class="form-group">
+    <label for="nom-main-theorique">Nom Main Théorique :</label>
+    <input type="text" id="nom-main-theorique" formControlName="nom" class="form-control">
+  </div>
+  <div class="form-group">
+    <h3>Prestation :</h3>
+    <select formControlName="prestationId" class="form-control">
+      <option *ngFor="let prestation of prestations" [value]="prestation.id">{{ prestation.name }} </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <h3>Type de Trafic :</h3>
+    <select  formControlName="typeTraficId" class="form-control">
+      <option *ngFor="let typretrafic of typetrafics" [value]="typretrafic.id">{{ typretrafic.name }} </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <h3>Trafic :</h3>
+    <select formControlName="traficId" class="form-control">
+      <option *ngFor="let trafic of trafics" [value]="trafic.id">{{ trafic.name }} </option>
+    </select>
+  </div>
+    <button type="button" class="button" (click)="charger()">Charger</button>
+  </form>
+  <form [formGroup]="modetheoriqueForm" class="form-container" *ngIf="afficherFormulaires && !isList &&!isAdd">
+    <h2>Ressources Humaines</h2>
+    <div class="form-group">
+      <h3> Fonction :</h3>
+      <select  formControlName="fonctionsId" class="form-control">
+        <option *ngFor="let fonctions of fonctions" [value]="fonctions.id">{{ fonctions.name }}</option>
+      </select>
+
+    </div>
+
+    <div class="form-group">
+      <label for="total">Nombre total :</label>
+      <input type="text" id="total" formControlName="total" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="nombreSurBord">Bord :</label>
+      <input type="text" id="nombreSurBord" formControlName="nombreSurBord" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="nombreAuQuai">Quai :</label>
+      <input type="text" id="nombreAuQuai" formControlName="nombreAuQuai" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="nombreArriere">Arrière :</label>
+      <input type="text" id="nombreArriere" formControlName="nombreArriere" class="form-control">
+    </div>
+    <button type="button" class="button" (click)="charger2()">Charger</button>
+  </form>
+  <form [formGroup]="modetheoriqueForm" class="form-container" *ngIf="afficherFormulaires2">
+    <h2>Ressources Matérielles</h2>
+    <div class="form-group">
+      <h3> Équipement Famille :</h3>
+      <select  formControlName="equipementFamilleId" class="form-control">
+        <option *ngFor="let equipementsfamille of equipementsfamille " [value]="equipementsfamille.id">{{ equipementsfamille.name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <h3> Équipement :</h3>
+      <select  formControlName="equipementId" class="form-control">
+        <option *ngFor="let equipements of equipements " [value]="equipements.id">{{ equipements.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <h3> Accesoire :</h3>
+      <select  formControlName="accessoireId" class="form-control">
+        <option *ngFor="let accessoires of accessoires " [value]="accessoires.id">{{ accessoires.name }}</option>
+      </select>
+    <button type="button" class="button" (click)="onSubmit()">Soumettre</button>
+  </div>
+  </form>
+<!--<form [formGroup]="modetheoriqueUpdateForm" class="maintheorique-form" *ngIf="isUpdating">-->
+<!--  &lt;!&ndash; Champ de saisie pour le nom &ndash;&gt;-->
+<!--  <div class="form-group">-->
+<!--    <label for="nom-main-theorique">Nom Main Théorique :</label>-->
+<!--    <input type="text" id="nom-main-theorique2" formControlName="nom" class="form-control">-->
+<!--  </div>-->
+
+
+<!--  <div class="form-group">-->
+<!--    <h3>Prestation :</h3>-->
+<!--    <select formControlName="prestationId" class="form-control">-->
+<!--      <option *ngFor="let prestation of prestations" [value]="prestation.id">{{ prestation.name }} </option>-->
+<!--    </select>-->
+<!--  </div>-->
+
+
+<!--  <div class="form-group">-->
+<!--    <h3>Type de Trafic :</h3>-->
+<!--    <select  formControlName="typeTraficId" class="form-control">-->
+<!--      <option *ngFor="let typretrafic of typetrafics" [value]="typretrafic.id">{{ typretrafic.name }} </option>-->
+
+<!--    </select>-->
+<!--  </div>-->
+
+
+<!--  <div class="form-group">-->
+<!--    <h3>Trafic :</h3>-->
+<!--    <select formControlName="traficId" class="form-control">-->
+<!--      <option *ngFor="let trafic of trafics" [value]="trafic.id">{{ trafic.name }} </option>-->
+<!--    </select>-->
+
+<!--  </div>-->
+
+<!--  <div class="button-container">-->
+<!--    <button type="button" class="button" (click)="charger()">Charger</button>-->
+<!--  </div>-->
+
+
+<!--  <div class="rh-container" *ngIf="afficherFormulaires">-->
+<!--    <h2>Ressources Humaines</h2>-->
+<!--    <div class="form-group">-->
+<!--      <h3> Fonction :</h3>-->
+<!--      <select  formControlName="fonctionsId" class="form-control">-->
+<!--        <option *ngFor="let fonctions of fonctions" [value]="fonctions.id">{{ fonctions.name }}</option>-->
+<!--      </select>-->
+
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="total">Nombre total :</label>-->
+<!--      <input type="text" id="total2" formControlName="total" class="form-control">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="nombreSurBord">Bord :</label>-->
+<!--      <input type="text" id="nombreSurBord2" formControlName="nombreSurBord" class="form-control">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="nombreAuQuai">Quai :</label>-->
+<!--      <input type="text" id="nombreAuQuai2" formControlName="nombreAuQuai" class="form-control">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="nombreArriere">Arrière :</label>-->
+<!--      <input type="text" id="nombreArriere2" formControlName="nombreArriere" class="form-control">-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+<!--  <div class="rm-container" *ngIf="afficherFormulaires">-->
+<!--    <h2>Ressources Matérielles</h2>-->
+<!--    <div class="form-group">-->
+<!--      <h3> Équipement Famille :</h3>-->
+<!--      <select  formControlName="equipementFamilleId" class="form-control">-->
+<!--        <option *ngFor="let equipementsfamille of equipementsfamille " [value]="equipementsfamille.id">{{ equipementsfamille.name }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <h3> Équipement :</h3>-->
+<!--      <select  formControlName="equipementId" class="form-control">-->
+<!--        <option *ngFor="let equipements of equipements " [value]="equipements.id">{{ equipements.name }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <h3> Accesoire :</h3>-->
+<!--      <select  formControlName="accessoireId" class="form-control">-->
+<!--        <option *ngFor="let accessoires of accessoires " [value]="accessoires.id">{{ accessoires.name }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+
+
+<!--    <div class="button-container">-->
+<!--      <button type="button" class="button" (click)="onUpdateSubmit()">update</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</form>-->
+
+
+</div>
